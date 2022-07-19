@@ -54,3 +54,9 @@ video.drawingBuffer {
   width: 400px;
   height: 300px;
 }
+
+.strokeMe {
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}

@@ -8,15 +8,15 @@ export default function InputForm() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // const barcode = e.target.barcode.value;
-    // const name = e.target.name.value;
-    // const date = e.target.date.value;
-    // const dateStamp = new Date(date).getTime();
-    // const status = 'AVAILABLE';
-    // const product = { barcode, name, date, dateStamp, status };
+    const barcode = e.target.barcode.value;
+    const name = e.target.name.value;
+    const date = e.target.date.value;
+    const dateStamp = new Date(date).getTime();
+    const status = 'AVAILABLE';
+    const product = { barcode, name, date, dateStamp, status };
     barcode = barcode.value;
     name = name.value;
-    const product = { barcode, name };
+    // const product = { barcode, name };
     console.log('Handler called');
     // console.log(product);
     createProduct({

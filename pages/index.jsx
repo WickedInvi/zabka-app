@@ -54,18 +54,18 @@ export default function Home() {
       </Head>
       <h1 className='text-5xl font-bold text-center'>Hello</h1>
       <ApolloProvider client={client}>
-        {/* <InputForm /> */}
-        {/* <BarcodeScannerNoSSR /> */}
-        <div>
-          <p>{result ? result : 'Scanning...'}</p>
-          <button onClick={() => setCamera(!camera)}>
-            {camera ? 'Stop' : 'Start'}
-          </button>
-          <div className='container'>
-            {camera && (
-              <BarcodeScannerNoSSR onDetected={onDetected} />
-            )}
-          </div>
+        <div className='flex flex-row'>
+          <InputForm />
+          {/* <BarcodeScannerNoSSR /> */}
+          {/* <div>
+            <p>{result ? result : 'Scanning...'}</p>
+            <button onClick={() => setCamera(!camera)}>
+              {camera ? 'Stop' : 'Start'}
+            </button>
+            <div className='container'>
+              {camera && <BarcodeScanner onDetected={onDetected} />}
+            </div>
+          </div> */}
         </div>
       </ApolloProvider>
     </div>

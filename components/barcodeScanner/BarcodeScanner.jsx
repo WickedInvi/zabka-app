@@ -1,22 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import config from './config.json';
 import Quagga from 'quagga';
 
 const BarcodeScanner = (props) => {
+  const [barcode, setBarcode] = useState('Not Scanned');
   const { onDetected } = props;
 
   useEffect(() => {
-    Quagga.init(config, (err) => {
+    Quagga.init(config, function (err) {
       if (err) {
-        console.log(err, 'error msg');
+        console.log(err);
+        return;
       }
+      console.log('Initialization finished. Ready to start');
       Quagga.start();
-      return () => {
-        Quagga.stop();
-      };
     });
 
-    //detecting boxes on stream
+    // detecting boxes on stream
     Quagga.onProcessed((result) => {
       var drawingCtx = Quagga.canvas.ctx.overlay,
         drawingCanvas = Quagga.canvas.dom.overlay;
@@ -69,18 +69,23 @@ const BarcodeScanner = (props) => {
       }
     });
 
-    Quagga.onDetected(detected);
+    Quagga.onDetected((data) => {
+      setBarcode(data.codeResult.code);
+      console.log(data.codeResult.code);
+    });
   }, []);
 
-  const detected = (result) => {
-    Quagga.onDetected(result.codeResult.code);
-  };
+  // setBarcode(detected);
 
   return (
     // If you do not specify a target,
     // QuaggaJS would look for an element that matches
     // the CSS selector #interactive.viewport
-    <div id='interactive' className='viewport' />
+    <div>
+      <div id='interactive' className='viewport' />
+
+      <p>{barcode}</p>
+    </div>
   );
 };
 

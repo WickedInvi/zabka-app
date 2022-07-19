@@ -2,10 +2,10 @@
   "inputStream": {
     "type": "LiveStream",
     "constraints": {
-      "width": { "min": 450 },
-      "height": { "min": 300 },
+      "width": { "min": 550 },
+      "height": { "min": 550 },
       "facingMode": "environment",
-      "aspectRatio": { "min": 1, "max": 2 }
+      "aspectRatio": { "min": 1, "max": 3 }
     }
   },
   "locator": {
@@ -15,7 +15,16 @@
   "numOfWorkers": 2,
   "frequency": 10,
   "decoder": {
-    "readers": ["ean_reader"]
+    "readers": [
+      "ean_reader",
+      "code_128_reader",
+      "code_39_reader",
+      "code_39_vin_reader",
+      "codabar_reader",
+      "upc_reader",
+      "upc_e_reader",
+      "i2of5_reader"
+    ]
   },
   "locate": true
 }
