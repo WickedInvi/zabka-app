@@ -53,12 +53,6 @@ export default function Navbar() {
             <AiOutlineMenuUnfold size={30} className='menu-icon' />
           )}
         </div> */}
-
-        <Link href='/' className=''>
-          <h1 className='hidden sm:block text-3xl font-bold strokeMe'>
-            Osada Bajeczna
-          </h1>
-        </Link>
         {/* DesktopNav */}
         {/* <ul className='hidden sm:flex gap-4 text-lg'>
           {navBarItems.map((item) => (
