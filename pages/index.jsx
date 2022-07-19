@@ -1,48 +1,15 @@
 import Head from 'next/head';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  HttpLink,
-  from,
-} from '@apollo/client';
-import { onError } from '@apollo/client/link/error';
-import InputForm from '../components/InputForm';
-import BarcodeScanner from '../components/barcodeScanner/BarcodeScanner';
-import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
-const BarcodeScannerNoSSR = dynamic(
-  () => import('../components/barcodeScanner/BarcodeScanner'),
-  { ssr: false }
-);
+import InputForm from '../components/InputForm';
+
 export default function Home() {
-  const errorLink = onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors)
-      graphQLErrors.map(({ message, locations, path }) => {
-        console.log(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-        );
-      });
-  });
+  // const [camera, setCamera] = useState(false);
+  // const [result, setResult] = useState(null);
 
-  const link = from([
-    errorLink,
-    new HttpLink({
-      uri: `${window.location.origin}/api/graphql`,
-    }),
-  ]);
-
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link: link,
-  });
-  const [camera, setCamera] = useState(false);
-  const [result, setResult] = useState(null);
-
-  const onDetected = (result) => {
-    setResult(result);
-  };
+  // const onDetected = (result) => {
+  //   setResult(result);
+  // };
 
   return (
     <div>
@@ -55,11 +22,9 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <h1 className='text-5xl font-bold text-center'>Hello</h1>
-      <ApolloProvider client={client}>
-        <div className='flex flex-row'>
-          <InputForm />
-          {/* <BarcodeScannerNoSSR /> */}
-          {/* <div>
+      <div className='flex flex-row'>
+        {/* <BarcodeScannerNoSSR /> */}
+        {/* <div>
             <p>{result ? result : 'Scanning...'}</p>
             <button onClick={() => setCamera(!camera)}>
               {camera ? 'Stop' : 'Start'}
@@ -68,8 +33,8 @@ export default function Home() {
               {camera && <BarcodeScanner onDetected={onDetected} />}
             </div>
           </div> */}
-        </div>
-      </ApolloProvider>
+        <InputForm />
+      </div>
     </div>
   );
 }

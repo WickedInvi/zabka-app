@@ -1,7 +1,10 @@
 import React from 'react';
+import InputForm from '../components/InputForm';
 
 export default function Book() {
-  console.log(window.location.origin);
-
-  return <div>book</div>;
+  return (
+    <div>
+      <InputForm />
+    </div>
+  );
 }
