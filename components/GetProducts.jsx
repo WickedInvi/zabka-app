@@ -15,9 +15,10 @@ export default function GetProducts() {
   return (
     <>
       <div>
-        {product.map((product) => (
-          <div key={product.id}>
+        {product.map((product, id) => (
+          <div key={id}>
             <h1>{product.name}</h1>
+            <p>{product.barcode}</p>
             <p>{product.description}</p>
           </div>
         ))}

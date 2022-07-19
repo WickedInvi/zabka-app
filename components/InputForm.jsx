@@ -6,6 +6,7 @@ export default function InputForm() {
   const [createProduct] = useMutation(CREATE_PRODUCT);
   const { loading, error, data } = useQuery(GET_ALL_PRODUCTS);
 
+  console.log(window.location);
   const submitHandler = (e) => {
     e.preventDefault();
     const barcode = e.target.barcode.value;
@@ -56,15 +57,6 @@ export default function InputForm() {
         <button>Submit</button>
       </form>
       <br />
-      {data.getAllProducts.map((product) => {
-        return (
-          <div key={product.id}>
-            <p>ID: {product.id}</p>
-            <p>Name: {product.name}</p>
-            <p>Barcode: {product.barcode}</p>
-          </div>
-        );
-      })}
     </div>
   );
 }

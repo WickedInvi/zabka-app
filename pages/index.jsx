@@ -28,7 +28,9 @@ export default function Home() {
 
   const link = from([
     errorLink,
-    new HttpLink({ uri: 'http://localhost:3000/api/graphql' }),
+    new HttpLink({
+      uri: `${window.location.origin}/api/graphql`,
+    }),
   ]);
 
   const client = new ApolloClient({
