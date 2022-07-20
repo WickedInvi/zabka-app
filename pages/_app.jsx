@@ -22,9 +22,7 @@ function MyApp({ Component, pageProps }) {
   const link = from([
     errorLink,
     new HttpLink({
-      uri:
-        'http://localhost:3000/api/graphql' ||
-        'https://zabka-app.vercel.app/api/graphql',
+      uri: '/api/graphql',
     }),
   ]);
 
