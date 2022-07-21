@@ -7,20 +7,20 @@ const ProductSchema = new Schema({
   },
   name: {
     type: String,
+    required: false,
+  },
+  expDate: {
+    type: String,
     required: true,
   },
-  // expDate: {
-  //   type: String,
-  //   required: true,
-  // },
-  // dateStamp: {
-  //   type: Date,
-  //   required: true,
-  // },
-  // status: {
-  //   type: String,
-  //   required: true,
-  // },
+  dateStamp: {
+    type: Date,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports =

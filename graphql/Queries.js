@@ -6,9 +6,9 @@ export const GET_ALL_PRODUCTS = gql`
       # id
       barcode
       name
-      # expDate
-      # dateTime
-      # status
+      expDate
+      dateStamp
+      status
     }
   }
 `;

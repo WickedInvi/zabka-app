@@ -7,9 +7,9 @@ export const typeDefs = gql`
     id: ID!
     barcode: String!
     name: String!
-    # expDate: String!
-    # dateStamp: Date
-    # status: enumProductStatus
+    expDate: String!
+    dateStamp: Date
+    status: enumProductStatus
   }
 
   enum enumProductStatus {
@@ -25,10 +25,10 @@ export const typeDefs = gql`
 
   input ProductInput {
     barcode: String!
-    name: String!
-    # expDate: String!
-    # dateStamp: String!
-    # status: enumProductStatus! = AVAILABLE
+    name: String
+    expDate: String!
+    dateStamp: String!
+    status: enumProductStatus! = AVAILABLE
   }
 
   type Mutation {

@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_PRODUCT } from '../graphql/Queries';
 import { BiBarcodeReader } from 'react-icons/bi';
 import BarcodeScanner from './barcodeScanner/BarcodeScanner';
+import itemsLog from './itemsLog.json';
 
 export default function InputForm() {
   const [startDate, setStartDate] = useState(new Date());
@@ -10,25 +11,46 @@ export default function InputForm() {
   const [name, setName] = useState('');
   const [dateStamp] = useState(new Date());
   const [status] = useState('AVAILABLE');
-
+  const aDate = new Date('3/10/2022 11:59:44');
   const [createProduct] = useMutation(CREATE_PRODUCT);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const product = { barcode, name, dateStamp, startDate, status };
-    // console.log('Handler called');
-    console.log(product);
-
+    // const product = { barcode, name, dateStamp, startDate, status };
+    // // console.log('Handler called');
+    // console.log(product);
+    // console.log(aDate);
     // createProduct({
     //   variables: {
     //     product: {
-    //       barcode: barcode,
-    //       name: name,
+    //       barcode: '2222',
+    //       name: 'item.name',
+    //       expDate: aDate,
+    //       dateStamp: aDate,
+    //       // status: item.status,
     //     },
     //   },
     // });
-    // console.log(product);
-    // e.target.reset();
+    let delay = 0;
+
+    itemsLog.forEach((item, id) => {
+      setTimeout(() => {
+        createProduct({
+          variables: {
+            product: {
+              barcode: item.barcode,
+              name: item.name,
+              expDate: item.expDate,
+              dateStamp: item.dateStamp,
+              status: item.status,
+            },
+          },
+        });
+      }, 100 + delay);
+      delay += 100;
+    });
+
+    e.target.reset();
   };
   const openScanner = () => {};
 
@@ -66,7 +88,6 @@ export default function InputForm() {
         <div className='w-3/4'>
           <input
             type='date'
-            placeholder='Select Date'
             onChange={(e) => setStartDate(new Date(e.target.value))}
             className='inline-block w-full p-2 rounded-3xl border-2 border-green-300 text-center'
           />
