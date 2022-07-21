@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { useState } from 'react';
 import { GET_ALL_PRODUCTS } from '../graphql/Queries';
 import { useQuery } from '@apollo/client';
 

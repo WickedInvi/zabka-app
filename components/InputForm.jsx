@@ -1,7 +1,12 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_PRODUCT, GET_ALL_PRODUCTS } from '../graphql/Queries';
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import { BiBarcodeReader } from 'react-icons/bi';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default function InputForm() {
+  const [startDate, setStartDate] = useState(new Date());
   let barcode, name;
   const [createProduct] = useMutation(CREATE_PRODUCT);
   const { loading, error, data } = useQuery(GET_ALL_PRODUCTS);
@@ -34,26 +39,37 @@ export default function InputForm() {
   if (error) return <p>Error</p>;
 
   return (
-    <div className='flex justify-center flex-col'>
+    <div>
       <form
         action='submit'
         onSubmit={submitHandler}
-        className='flex flex-col'
+        className='flex flex-col gap-10 items-center justify-center mt-52'
       >
         <input
           ref={(value) => (barcode = value)}
           type='text'
           placeholder='Barcode'
           id='barcode'
+          className='w-1/2 p-2 rounded-3xl border-2 border-green-300 text-center'
         />
+        {/* <BiBarcodeReader size={40} color="white" /> */}
         <input
           ref={(value) => (name = value)}
           type='text'
           placeholder='Name'
           id='name'
+          className='w-1/2 p-2 rounded-3xl border-2 border-green-300 text-center'
         />
-        {/* <input type='text' placeholder='Date' id='date' /> */}
-        <button>Submit</button>
+        <div className='w-1/2'>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            className='inline-block w-full p-2 rounded-3xl border-2 border-green-300 text-center'
+          />
+        </div>
+        <button className='mt-52 w-1/2 p-2 rounded-3xl border-2 border-green-300 text-center bg-slate-300'>
+          Submit
+        </button>
       </form>
       <br />
     </div>
