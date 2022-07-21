@@ -15,9 +15,9 @@ export default function InputForm() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // const product = { barcode, name, dateStamp, startDate, status };
+    const product = { barcode, name, dateStamp, startDate, status };
     // console.log('Handler called');
-    // console.log(product);
+    console.log(product);
 
     // createProduct({
     //   variables: {
@@ -66,8 +66,8 @@ export default function InputForm() {
         <div className='w-3/4'>
           <input
             type='date'
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            placeholder='Select Date'
+            onChange={(e) => setStartDate(new Date(e.target.value))}
             className='inline-block w-full p-2 rounded-3xl border-2 border-green-300 text-center'
           />
         </div>
