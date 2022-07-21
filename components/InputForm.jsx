@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_PRODUCT } from '../graphql/Queries';
-import DatePicker from 'react-datepicker';
 import { BiBarcodeReader } from 'react-icons/bi';
-
-import 'react-datepicker/dist/react-datepicker.css';
 import BarcodeScanner from './barcodeScanner/BarcodeScanner';
 
 export default function InputForm() {
@@ -67,7 +64,8 @@ export default function InputForm() {
           className='w-3/4 p-2 rounded-3xl border-2 border-green-300 text-center'
         />
         <div className='w-3/4'>
-          <DatePicker
+          <input
+            type='date'
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             className='inline-block w-full p-2 rounded-3xl border-2 border-green-300 text-center'
