@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import config from './config.json';
 import Quagga from 'quagga';
 
-const BarcodeScanner = (props) => {
-  const [barcode, setBarcode] = useState('Not Scanned');
-  const { onDetected } = props;
-
+const BarcodeScanner = ({ setBarcode }) => {
   useEffect(() => {
     Quagga.init(config, function (err) {
       if (err) {
@@ -83,8 +80,6 @@ const BarcodeScanner = (props) => {
     // the CSS selector #interactive.viewport
     <div>
       <div id='interactive' className='viewport' />
-
-      <p>{barcode}</p>
     </div>
   );
 };

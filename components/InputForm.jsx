@@ -1,73 +1,79 @@
-import { useMutation, useQuery } from '@apollo/client';
-import { CREATE_PRODUCT, GET_ALL_PRODUCTS } from '../graphql/Queries';
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { CREATE_PRODUCT } from '../graphql/Queries';
 import DatePicker from 'react-datepicker';
 import { BiBarcodeReader } from 'react-icons/bi';
+
 import 'react-datepicker/dist/react-datepicker.css';
+import BarcodeScanner from './barcodeScanner/BarcodeScanner';
 
 export default function InputForm() {
   const [startDate, setStartDate] = useState(new Date());
-  let barcode, name;
+  const [barcode, setBarcode] = useState('');
+  const [name, setName] = useState('');
+  const [dateStamp] = useState(new Date());
+  const [status] = useState('AVAILABLE');
+
   const [createProduct] = useMutation(CREATE_PRODUCT);
-  const { loading, error, data } = useQuery(GET_ALL_PRODUCTS);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const barcode = e.target.barcode.value;
-    const name = e.target.name.value;
-    // const date = e.target.date.value;
-    // const dateStamp = new Date(date).getTime();
-    // const status = 'AVAILABLE';
-    // const product = { barcode, name, date, dateStamp, status };
-    // barcode = barcode.value;
-    // name = name.value;
-    const product = { barcode, name };
-    console.log('Handler called');
-    console.log(product);
-    createProduct({
-      variables: {
-        product: {
-          barcode: barcode,
-          name: name,
-        },
-      },
-    });
+    // const product = { barcode, name, dateStamp, startDate, status };
+    // console.log('Handler called');
+    // console.log(product);
+
+    // createProduct({
+    //   variables: {
+    //     product: {
+    //       barcode: barcode,
+    //       name: name,
+    //     },
+    //   },
+    // });
     // console.log(product);
     // e.target.reset();
   };
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error</p>;
+  const openScanner = () => {};
 
   return (
     <div>
+      {/* <BarcodeScanner setBarcode={setBarcode} /> */}
       <form
         action='submit'
         onSubmit={submitHandler}
-        className='flex flex-col gap-10 items-center justify-center mt-52'
+        className='flex flex-col gap-10 items-center justify-center mt-20'
       >
+        <div className='relative w-3/4'>
+          <input
+            value={barcode}
+            onChange={(e) => setBarcode(e.target.value)}
+            type='text'
+            placeholder='Barcode'
+            id='barcode'
+            className='w-full p-2 rounded-3xl border-2 border-green-300 text-center'
+          />
+          <BiBarcodeReader
+            size={35}
+            className='absolute right-0 top-0 mr-2 mt-1'
+            onClick={openScanner}
+          />
+        </div>
         <input
-          ref={(value) => (barcode = value)}
-          type='text'
-          placeholder='Barcode'
-          id='barcode'
-          className='w-1/2 p-2 rounded-3xl border-2 border-green-300 text-center'
-        />
-        {/* <BiBarcodeReader size={40} color="white" /> */}
-        <input
-          ref={(value) => (name = value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           type='text'
           placeholder='Name'
           id='name'
-          className='w-1/2 p-2 rounded-3xl border-2 border-green-300 text-center'
+          className='w-3/4 p-2 rounded-3xl border-2 border-green-300 text-center'
         />
-        <div className='w-1/2'>
+        <div className='w-3/4'>
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             className='inline-block w-full p-2 rounded-3xl border-2 border-green-300 text-center'
           />
         </div>
-        <button className='mt-52 w-1/2 p-2 rounded-3xl border-2 border-green-300 text-center bg-slate-300'>
+        <button className='mt-52 w-3/4 p-2 rounded-3xl border-2 border-green-300 text-center bg-slate-300'>
           Submit
         </button>
       </form>
