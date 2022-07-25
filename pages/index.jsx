@@ -3,49 +3,9 @@ import { GET_ALL_PRODUCTS } from '../graphql/Queries';
 import { useQuery } from '@apollo/client';
 import Converter from '../components/converter/Converter';
 import { useState } from 'react';
+import Products from '../components/Products';
 
 export default function Home() {
-  const { loading, error, data } = useQuery(GET_ALL_PRODUCTS);
-  const [dateStamp] = useState(new Date());
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return console.log(error);
-
-  const dateToString10 = (date) => date.toISOString().slice(0, 10);
-
-  let products = data.getAllProducts
-    .filter((product) => {
-      return (
-        dateToString10(new Date(product.expDate)) ==
-          dateToString10(new Date()) && product.status === 'AVAILABLE'
-      );
-    })
-    .sort((a, b) => {
-      return new Date(a.expDate) - new Date(b.expDate);
-    });
-  // const products = productsToSort.sort((a, b) => {
-  //   return new Date(a.expDate) - new Date(b.expDate);
-  // });
-  // .filter((product) => new Date(product.expDate) >= new Date())
-  // .slice(0, 5)
-  // .map((product, id) => {
-  //   return (
-  //     <div key={id}>
-  //       <h1>Name: {product.name}</h1>
-  //       <p>
-  //         Exp Date:{' '}
-  //         {new Date(product.expDate).toISOString().slice(0, 10)}
-  //       </p>
-  //     </div>
-  //   );
-  // });
-  const date1 = new Date(products[0].expDate)
-    .toISOString()
-    .slice(0, 10);
-  const date2 = new Date().toISOString().slice(0, 10);
-  const diffTime = Math.abs(date2 - date1);
-  console.log(date1);
-  console.log(date2);
   return (
     <div>
       <Head>
@@ -56,8 +16,9 @@ export default function Home() {
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <h1 className='text-5xl font-bold text-center'>Hello</h1>
-      {/* <div className='flex flex-col'>
+      <main className='mb-20'>
+        <h1 className='text-5xl font-bold text-center'>Hello</h1>
+        {/* <div className='flex flex-col'>
         {data.getAllProducts.slice(0, 5).map((product, id) => (
           <div key={id}>
             <h1>Name: {product.name}</h1>
@@ -66,20 +27,9 @@ export default function Home() {
           </div>
         ))}
       </div> */}
-      <div className='flex flex-col gap-5 m-10'>
-        {products.map((product, id) => {
-          return (
-            <div key={id}>
-              <h1>Name: {product.name}</h1>
-              <p>
-                Exp Date: {dateToString10(new Date(product.expDate))}
-              </p>
-              <p>{product.status}</p>
-            </div>
-          );
-        })}
-      </div>
-      {/* <Converter></Converter> */}
+        <Products></Products>
+        {/* <Converter></Converter> */}
+      </main>
     </div>
   );
 }
